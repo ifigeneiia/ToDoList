@@ -22,7 +22,6 @@ const mapStateToProps = state => {
 
 
 class Form extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -46,7 +45,7 @@ class Form extends React.Component {
     render() {
         return (
             <div>
-                <input className="check--label" type="text" maxLength={40} placeholder="Title..." id="myInput" value={this.state.value} onChange={this.handleChange} />
+                <input className="check--label" type="text" minLength={0} maxLength={40} placeholder="Title..." id="myInput" value={this.state.value} onChange={this.handleChange} />
                 <AddButton itemTitle={this.state.value} addNewItem={this.addNewItem}/>
                 {this.props.isAddingItem ? <Spinner /> : ''}
                 {this.props.isAddingItemError ? 'Something went wrong!' : ''}

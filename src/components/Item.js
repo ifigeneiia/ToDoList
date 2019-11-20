@@ -16,19 +16,12 @@ class Item extends Component {
         super(props);
         this.state = {
             editMode: false,
-
-
-
-
-
-            
             completed: true,
             value: ""
         };
 
         this.handleEdit = this.handleEdit.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
     componentDidMount() {
@@ -53,14 +46,17 @@ class Item extends Component {
         this.setState({ completed: !this.state.completed });
     }
 
-
     handleSubmit() {
         let element = this.props.element;
         let newTitle = this.state.value;
 
-        if( newTitle === ""){
+        if (newTitle === ""){
             alert('Empty value!')
-        }else{
+        }
+        else if(newTitle.match(/\s/g)){
+            alert('You have whitespaces in your Title!')
+        }
+      else{
         if (element.title !== newTitle) {
             element.title = newTitle;
             this.props.dispatch(editItemProcedure(element));

@@ -1,0 +1,62 @@
+{
+  "name": "to-dolist",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "chai": "^4.2.0",
+    "coverage": "^0.4.1",
+    "css-toggle-switch": "^4.1.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "firebase": "^7.2.3",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "react-native": "0.45.1",
+    "react-redux": "^6.0.0",
+    "react-redux-spinner": "^2.0.0",
+    "react-scripts": "3.2.0",
+    "react-shallow-testutils": "^3.0.1",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "sinon": "^7.5.0",
+    "uuid": "^3.3.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "test:watch": "npm test -- --watch"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.7.1",
+    "babel-jest": "^24.9.0",
+    "enzyme": "^3.10.0",
+    "jest": "^20.0.4",
+    "jest-fetch-mock": "^2.1.2",
+    "jest-webpack": "^0.5.1",
+    "react-test-renderer": "^16.0.0-alpha.12",
+    "redux-mock-store": "^1.5.3"
+  },
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ]
+}

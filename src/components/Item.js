@@ -84,7 +84,7 @@ class Item extends Component {
                 <div className="">
                     {this.state.editMode && <input type="text" value={this.state.value} onChange={this.handleChange} />}
                     {this.state.editMode && <SubmitButton handleSubmit={this.handleSubmit}/>}
-                    {!this.state.editMode && <EditButton handleEdit={this.handleEdit}/>}
+                    {this.props.element.completed === false ? !this.state.editMode && <EditButton handleEdit={this.handleEdit}/> : ""}
                 </div>
             </div>
         )

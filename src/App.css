@@ -133,10 +133,10 @@ input {
 
 .addButton {
 	box-shadow:inset 0px 1px 0px 0px #efdcfb;
-	background:linear-gradient(to bottom, #dfbdfa 5%, #bc80ea 100%);
-	background-color:#dfbdfa;
+	background:linear-gradient(to bottom, #fabde3 5%, #cc48a0 100%);
+	background-color:#c2179d;
 	border-radius:6px;
-	border:1px solid #c584f3;
+	border:1px solid #eb7db0;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -145,12 +145,12 @@ input {
 	font-weight:bold;
 	padding:6px 24px;
 	text-decoration:none;
-  text-shadow:0px 1px 0px #9752cc;
+  text-shadow:0px 1px 0px #c7198d;
   margin: 10px;
 }
 .addButton:hover {
-	background:linear-gradient(to bottom, #bc80ea 5%, #dfbdfa 100%);
-	background-color:#bc80ea;
+	background:linear-gradient(to bottom, #ea8092 5%, #da5db4 100%);
+	background-color:#e083cc;
 }
 .addButton:active {
 	position:relative;

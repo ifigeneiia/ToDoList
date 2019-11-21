@@ -28,6 +28,12 @@ class Item extends Component {
         this.setState({ value: this.props.element.title });
     }
 
+   componentDidUpdate(prevProps, prevState) {
+    if (this.props.element.title !== prevProps.element.title) {
+        this.setState({ value: this.props.element.title });
+      }
+   }
+    
     handleEdit = () => {
         this.setState({ editMode: !this.state.editMode })
     };
@@ -49,7 +55,6 @@ class Item extends Component {
     handleSubmit() {
         let element = this.props.element;
         let newTitle = this.state.value;
-
         if (newTitle === ""){
             alert('Empty value!')
         }
@@ -74,8 +79,8 @@ class Item extends Component {
                         <input type="checkbox" onChange={this.handleCompleted} checked={this.props.element.completed}/>
                         <span className="slider round" ></span>
                     </label>}
-                    {this.state.completed && this.props.element.completed === false ? <label>{!this.state.editMode && this.props.element.title}</label> :
-                    <label className="line" >{!this.state.editMode && this.props.element.title}</label>}
+                    { this.props.element.completed === false ? <label>{this.props.element.title}</label> :
+                    <label className="line" >{this.props.element.title}</label>}
                 </div>
                 <div className="">
                     {this.state.editMode && <input type="text" value={this.state.value} onChange={this.handleChange} />}

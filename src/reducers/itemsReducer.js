@@ -21,7 +21,16 @@ function itemsReducer(state = initialState, action) {
             return {
                 ...state,
                 isAddingItem: true,
-                isRemoveItem: false
+                isAddingItemError: false,
+                isRemovingItem: false,
+                isRemoveItem: false,
+                isRemovingItemError: false,
+                isGettingItems: false,
+                isGettingItemsError: false,
+                isEditingItem: false,
+                isEditingItemError: false,
+                isCompletingItem: false,
+                isCompletingItemError: false
             };
         case actionTypes.ADD_ITEM:
             return {
@@ -29,19 +38,45 @@ function itemsReducer(state = initialState, action) {
                 items: [...state.items, action.payload],
                 isAddingItem: false,
                 isAddingItemError: false,
-                isRemoveItem: false
+                isRemovingItem: false,
+                isRemoveItem: false,
+                isRemovingItemError: false,
+                isGettingItems: false,
+                isGettingItemsError: false,
+                isEditingItem: false,
+                isEditingItemError: false,
+                isCompletingItem: false,
+                isCompletingItemError: false
             };
         case actionTypes.ADDING_ITEM_ERROR:
             return {
                 ...state,
                 isAddingItem: false,
-                isAddingItemError: true
+                isAddingItemError: true,
+                isRemovingItem: false,
+                isRemoveItem: false,
+                isRemovingItemError: false,
+                isGettingItems: false,
+                isGettingItemsError: false,
+                isEditingItem: false,
+                isEditingItemError: false,
+                isCompletingItem: false,
+                isCompletingItemError: false
             };
         case actionTypes.REMOVING_ITEM:
             return {
                 ...state,
                 isRemovingItem: true,
-                isRemoveItem: false
+                isRemoveItem: false,
+                isAddingItem: false,
+                isAddingItemError: false,
+                isRemovingItemError: false,
+                isGettingItems: false,
+                isGettingItemsError: false,
+                isEditingItem: false,
+                isEditingItemError: false,
+                isCompletingItem: false,
+                isCompletingItemError: false
             };
         case actionTypes.REMOVE_ITEM:
             return {
@@ -50,20 +85,45 @@ function itemsReducer(state = initialState, action) {
                 isRemovingItem: false,
                 isRemovingItemError: false,
                 isRemoveItem: true,
+                isAddingItem: false,
+                isAddingItemError: false,
+                isGettingItems: false,
+                isGettingItemsError: false,
+                isEditingItem: false,
+                isEditingItemError: false,
+                isCompletingItem: false,
+                isCompletingItemError: false
             }
         case actionTypes.REMOVING_ITEM_ERROR:
             return {
                 ...state,
                 isRemovingItem: false,
                 isRemoveItem: false,
-                isRemovingItemError: true
+                isRemovingItemError: true,
+                isAddingItem: false,
+                isAddingItemError: false,
+                isGettingItems: false,
+                isGettingItemsError: false,
+                isEditingItem: false,
+                isEditingItemError: false,
+                isCompletingItem: false,
+                isCompletingItemError: false
 
             }
         case actionTypes.GETTING_ITEMS:
             return {
                 ...state,
                 isGettingItems: true,
-                isRemoveItem: false
+                isAddingItem: false,
+                isAddingItemError: false,
+                isRemovingItem: false,
+                isRemoveItem: false,
+                isRemovingItemError: false,
+                isGettingItemsError: false,
+                isEditingItem: false,
+                isEditingItemError: false,
+                isCompletingItem: false,
+                isCompletingItemError: false
             };
         case actionTypes.GET_ITEMS:
             return {
@@ -71,7 +131,15 @@ function itemsReducer(state = initialState, action) {
                 items: action.payload,
                 isGettingItems: false,
                 isGettingItemsError: false,
-                isRemoveItem: false
+                isAddingItem: false,
+                isAddingItemError: false,
+                isRemovingItem: false,
+                isRemoveItem: false,
+                isRemovingItemError: false,
+                isEditingItem: false,
+                isEditingItemError: false,
+                isCompletingItem: false,
+                isCompletingItemError: false
 
             }
         case actionTypes.GETTING_ITEMS_ERROR:
@@ -79,13 +147,30 @@ function itemsReducer(state = initialState, action) {
                 ...state,
                 isGettingItems: false,
                 isGettingItemsError: true,
-                isRemoveItem: false
+                isAddingItem: false,
+                isAddingItemError: false,
+                isRemovingItem: false,
+                isRemoveItem: false,
+                isRemovingItemError: false,
+                isGettingItems: false,
+                isEditingItemError: false,
+                isCompletingItem: false,
+                isCompletingItemError: false
             }
         case actionTypes.EDITING_ITEM:
             return {
                 ...state,
                 isEditingItem: true,
-                isRemoveItem: false
+                isAddingItem: false,
+                isAddingItemError: false,
+                isRemovingItem: false,
+                isRemoveItem: false,
+                isRemovingItemError: false,
+                isGettingItems: false,
+                isGettingItemsError: false,
+                isEditingItemError: false,
+                isCompletingItem: false,
+                isCompletingItemError: false
             };
         case actionTypes.EDIT_ITEM:
             return {
@@ -97,20 +182,45 @@ function itemsReducer(state = initialState, action) {
                 ),
                 isEditingItem: false,
                 isEditingItemError: false,
-                isRemoveItem: false
+                isAddingItem: false,
+                isAddingItemError: false,
+                isRemovingItem: false,
+                isRemoveItem: false,
+                isRemovingItemError: false,
+                isGettingItems: false,
+                isGettingItemsError: false,
+                isCompletingItem: false,
+                isCompletingItemError: false
             }
         case actionTypes.EDITING_ITEM_ERROR:
             return {
                 ...state,
                 isEditingItem: false,
                 isEditingItemError: true,
-                isRemoveItem: false
+                isAddingItem: false,
+                isAddingItemError: false,
+                isRemovingItem: false,
+                isRemoveItem: false,
+                isRemovingItemError: false,
+                isGettingItems: false,
+                isGettingItemsError: false,
+                isCompletingItem: false,
+                isCompletingItemError: false
             }
         case actionTypes.COMPLETING_ITEM:
             return {
                 ...state,
                 isCompletingItem: true,
-                isRemoveItem: false
+                isAddingItem: false,
+                isAddingItemError: false,
+                isRemovingItem: false,
+                isRemoveItem: false,
+                isRemovingItemError: false,
+                isGettingItems: false,
+                isGettingItemsError: false,
+                isEditingItem: false,
+                isEditingItemError: false,
+                isCompletingItemError: false
             };
         case actionTypes.COMPLETED_ITEM:
             return {
@@ -122,14 +232,30 @@ function itemsReducer(state = initialState, action) {
                 ),
                 isCompletingItem: false,
                 isCompletingItemError: false,
-                isRemoveItem: false
+                isAddingItem: false,
+                isAddingItemError: false,
+                isRemovingItem: false,
+                isRemoveItem: false,
+                isRemovingItemError: false,
+                isGettingItems: false,
+                isGettingItemsError: false,
+                isEditingItem: false,
+                isEditingItemError: false,
             }
         case actionTypes.COMPLETING_ITEM_ERROR:
             return {
                 ...state,
                 isCompletingItem: false,
                 isCompletingItemError: true,
-                isRemoveItem: false
+                isAddingItem: false,
+                isAddingItemError: false,
+                isRemovingItem: false,
+                isRemoveItem: false,
+                isRemovingItemError: false,
+                isGettingItems: false,
+                isGettingItemsError: false,
+                isEditingItem: false,
+                isEditingItemError: false,
             }
 
         default:

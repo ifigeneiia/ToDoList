@@ -41,10 +41,11 @@ class Form extends React.Component {
     }
 
     render() {
+        
         return (
             <div>
                 <input className="check--label" type="text" minLength={0} maxLength={40} placeholder="Title..." id="myInput" value={this.state.value} onChange={this.handleChange} />
-                <AddButton itemTitle={this.state.value} addNewItem={this.addNewItem}/>
+                <AddButton itemTitle={this.state.value} addNewItem={this.addNewItem}/> 
             </div>
         );
     }

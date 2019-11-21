@@ -10,6 +10,7 @@ const mapStateToProps = state => {
   return {
     items: state.itemsReducer.items,
     isRemovingItem: state.itemsReducer.isRemovingItem,
+    isRemoveItem: state.itemsReducer.isRemoveItem,
     isRemovingItemError: state.itemsReducer.isRemovingItemError,
     isGettingingItems: state.itemsReducer.isGettingingItems,
     isGettingingItemsError: state.itemsReducer.isGettingingItemsError,
@@ -31,7 +32,7 @@ class ItemsList extends Component {
   }
 
   handleDelete = (item) => {
-    this.props.dispatch(deleteItemProcedure(item));
+    this.props.dispatch(deleteItemProcedure(item))
   }
 
   handleGet = () => {
@@ -54,6 +55,7 @@ class ItemsList extends Component {
         {this.props.isGettingItems ? <Spinner /> : ''}
         {this.props.isGettinItemError ? 'Something went wrong!' : ''}
         {this.props.isRemovingItem ? <Spinner /> : ''}
+        {this.props.isRemoveItem === true ? alert('The item deleted successfully!') : '' }
         {this.props.isRemovingItemError ? 'Something went wrong!' : ''}
         {this.props.isEditingItem ? <Spinner /> : ''}
         {this.props.isEditingItemError ? 'Something went wrong!' : ''}

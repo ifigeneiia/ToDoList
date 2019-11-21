@@ -6,6 +6,7 @@ const initialState = {
     isAddingItem: false,
     isAddingItemError: false,
     isRemovingItem: false,
+    isRemoveItem: false,
     isRemovingItemError: false,
     isGettingItems: false,
     isGettingItemsError: false,
@@ -19,14 +20,16 @@ function itemsReducer(state = initialState, action) {
         case actionTypes.ADDING_ITEM:
             return {
                 ...state,
-                isAddingItem: true
+                isAddingItem: true,
+                isRemoveItem: false
             };
         case actionTypes.ADD_ITEM:
             return {
                 ...state,
                 items: [...state.items, action.payload],
                 isAddingItem: false,
-                isAddingItemError: false
+                isAddingItemError: false,
+                isRemoveItem: false
             };
         case actionTypes.ADDING_ITEM_ERROR:
             return {
@@ -37,20 +40,24 @@ function itemsReducer(state = initialState, action) {
         case actionTypes.REMOVING_ITEM:
             return {
                 ...state,
-                isRemovingItem: true
+                isRemovingItem: true,
+                isRemoveItem: false
             };
         case actionTypes.REMOVE_ITEM:
             return {
                 ...state,
                 items: [...state.items.filter(item => item !== action.payload)],
                 isRemovingItem: false,
-                isRemovingItemError: false
+                isRemovingItemError: false,
+                isRemoveItem: true,
             }
         case actionTypes.REMOVING_ITEM_ERROR:
             return {
                 ...state,
                 isRemovingItem: false,
+                isRemoveItem: false,
                 isRemovingItemError: true
+
             }
         case actionTypes.GETTING_ITEMS:
             return {

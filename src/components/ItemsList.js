@@ -42,7 +42,10 @@ class ItemsList extends Component {
   }
 
   render() {
-    const itemsToRender = this.props.items.map((element, i) => {
+    const itemsTodo = this.props.items.filter( (element) => {
+      return(element.completed === false)
+    });
+    const itemsToRender = itemsTodo.map((element, i) => {
       return (
         <li className="list-item" key={i} >
           <Item element={element} />
@@ -51,9 +54,25 @@ class ItemsList extends Component {
       )
     });
 
+    const itemsTodoCompleted = this.props.items.filter( (element) => {
+      return(element.completed === true)
+    });
+
+    const itemsToRenderDone = itemsTodoCompleted.map((element,i) => {
+      return (
+        <li>
+          <Item element={element}/>
+          <button className="close" onClick={() => this.handleDelete(element)}><span className="close">&times;</span></button>
+        </li>
+      )
+    })
+
     return (
       <div >
+        <h4>Todo Items</h4>
         <ul>{itemsToRender}</ul>
+        <h4>Completed Items</h4>
+        <ul>{itemsToRenderDone}</ul>
         {this.props.isGettingItems ? <Spinner /> : ''}
         {this.props.isGettinItemError ? 'Something went wrong!' : ''}
         {this.props.isAddingItem ? <Spinner /> : ''}

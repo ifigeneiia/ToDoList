@@ -15,8 +15,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 const mapStateToProps = state => {
     return {
         items: state.itemsReducer.items,
-        isAddingItem: state.itemsReducer.isAddingItem,
-        isAddingItemError: state.itemsReducer.isAddingItemError
     };
 };
 
@@ -47,8 +45,6 @@ class Form extends React.Component {
             <div>
                 <input className="check--label" type="text" minLength={0} maxLength={40} placeholder="Title..." id="myInput" value={this.state.value} onChange={this.handleChange} />
                 <AddButton itemTitle={this.state.value} addNewItem={this.addNewItem}/>
-                {this.props.isAddingItem ? <Spinner /> : ''}
-                {this.props.isAddingItemError ? 'Something went wrong!' : ''}
             </div>
         );
     }

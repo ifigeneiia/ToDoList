@@ -9,6 +9,8 @@ import Item from './Item';
 const mapStateToProps = state => {
   return {
     items: state.itemsReducer.items,
+    isAddingItem: state.itemsReducer.isAddingItem,
+    isAddingItemError: state.itemsReducer.isAddingItemError,
     isRemovingItem: state.itemsReducer.isRemovingItem,
     isRemoveItem: state.itemsReducer.isRemoveItem,
     isRemovingItemError: state.itemsReducer.isRemovingItemError,
@@ -54,6 +56,8 @@ class ItemsList extends Component {
         <ul>{itemsToRender}</ul>
         {this.props.isGettingItems ? <Spinner /> : ''}
         {this.props.isGettinItemError ? 'Something went wrong!' : ''}
+        {this.props.isAddingItem ? <Spinner /> : ''}
+        {this.props.isAddingItemError ? 'Something went wrong!' : ''}
         {this.props.isRemovingItem ? <Spinner /> : ''}
         {this.props.isRemoveItem === true ? alert('The item deleted successfully!') : '' }
         {this.props.isRemovingItemError ? 'Something went wrong!' : ''}

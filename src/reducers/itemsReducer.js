@@ -62,7 +62,8 @@ function itemsReducer(state = initialState, action) {
         case actionTypes.GETTING_ITEMS:
             return {
                 ...state,
-                isGettingItems: true
+                isGettingItems: true,
+                isRemoveItem: false
             };
         case actionTypes.GET_ITEMS:
             return {
@@ -70,18 +71,21 @@ function itemsReducer(state = initialState, action) {
                 items: action.payload,
                 isGettingItems: false,
                 isGettingItemsError: false,
+                isRemoveItem: false
 
             }
         case actionTypes.GETTING_ITEMS_ERROR:
             return {
                 ...state,
                 isGettingItems: false,
-                isGettingItemsError: true
+                isGettingItemsError: true,
+                isRemoveItem: false
             }
         case actionTypes.EDITING_ITEM:
             return {
                 ...state,
-                isEditingItem: true
+                isEditingItem: true,
+                isRemoveItem: false
             };
         case actionTypes.EDIT_ITEM:
             return {
@@ -92,18 +96,21 @@ function itemsReducer(state = initialState, action) {
                         : item
                 ),
                 isEditingItem: false,
-                isEditingItemError: false
+                isEditingItemError: false,
+                isRemoveItem: false
             }
         case actionTypes.EDITING_ITEM_ERROR:
             return {
                 ...state,
                 isEditingItem: false,
-                isEditingItemError: true
+                isEditingItemError: true,
+                isRemoveItem: false
             }
         case actionTypes.COMPLETING_ITEM:
             return {
                 ...state,
-                isCompletingItem: true
+                isCompletingItem: true,
+                isRemoveItem: false
             };
         case actionTypes.COMPLETED_ITEM:
             return {
@@ -114,13 +121,15 @@ function itemsReducer(state = initialState, action) {
                         : item
                 ),
                 isCompletingItem: false,
-                isCompletingItemError: false
+                isCompletingItemError: false,
+                isRemoveItem: false
             }
         case actionTypes.COMPLETING_ITEM_ERROR:
             return {
                 ...state,
                 isCompletingItem: false,
-                isCompletingItemError: true
+                isCompletingItemError: true,
+                isRemoveItem: false
             }
 
         default:

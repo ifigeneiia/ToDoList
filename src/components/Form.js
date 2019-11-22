@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addItemProcedure } from "../actions/index";
-import Spinner from './UI/Spinner/Spinner';
 import AddButton from './UI/AddButton';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -44,7 +43,7 @@ class Form extends React.Component {
         
         return (
             <div>
-                <input className="check--label" type="text" minLength={0} maxLength={40} placeholder="Title..." id="myInput" value={this.state.value} onChange={this.handleChange} />
+                <input className="check--label" type="text" minLength={0} maxLength={28} placeholder="Title..." id="myInput" value={this.state.value} onChange={this.handleChange} />
                 <AddButton itemTitle={this.state.value} addNewItem={this.addNewItem}/> 
             </div>
         );

@@ -24,8 +24,8 @@ class AddButton extends React.Component {
         return (
             <div>
                <Media queries={{
-                small: "(max-width: 640px)",
-                large: "(min-width: 640px)"
+                small: "(max-width: 756px)",
+                large: "(min-width: 756px)"
                 }}>
                 {matches => (
                 <Fragment>

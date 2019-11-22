@@ -82,7 +82,7 @@ class Item extends Component {
                     { this.props.element.completed === false ? <label>{this.props.element.title}</label> :
                     <label className="line" >{this.props.element.title}</label>}
                 </div>
-                <div className="">
+                <div className="flex-wrapper">
                     {this.state.editMode && <input type="text" value={this.state.value} onChange={this.handleChange} />}
                     {this.state.editMode && <SubmitButton handleSubmit={this.handleSubmit}/>}
                     {this.props.element.completed === false ? !this.state.editMode && <EditButton handleEdit={this.handleEdit}/> : ""}

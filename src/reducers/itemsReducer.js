@@ -152,7 +152,6 @@ function itemsReducer(state = initialState, action) {
                 isRemovingItem: false,
                 isRemoveItem: false,
                 isRemovingItemError: false,
-                isGettingItems: false,
                 isEditingItemError: false,
                 isCompletingItem: false,
                 isCompletingItemError: false

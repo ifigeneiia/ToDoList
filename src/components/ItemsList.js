@@ -4,6 +4,7 @@ import { deleteItemProcedure } from "../actions/index";
 import { getItemsProcedure } from "../actions/index";
 import Spinner from './UI/Spinner/Spinner';
 import Item from './Item';
+import logo from '../Logo/logo.PNG'
 
 
 const mapStateToProps = state => {
@@ -49,7 +50,7 @@ class ItemsList extends Component {
       return (
         <li className="list-item" key={i} >
           <Item element={element} />
-          <button className="close" onClick={() => this.handleDelete(element)}><span className="close">&times;</span></button>
+          <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
         </li>
       )
     });
@@ -60,9 +61,9 @@ class ItemsList extends Component {
 
     const itemsToRenderDone = itemsTodoCompleted.map((element,i) => {
       return (
-        <li>
+        <li className="list-item" key={i}>
           <Item element={element}/>
-          <button className="close" onClick={() => this.handleDelete(element)}><span className="close">&times;</span></button>
+          <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
         </li>
       )
     })
@@ -82,7 +83,16 @@ class ItemsList extends Component {
         {this.props.isRemovingItemError ? 'Something went wrong!' : ''}
         {this.props.isEditingItem ? <Spinner /> : ''}
         {this.props.isEditingItemError ? 'Something went wrong!' : ''}
+
+        <div>
+          © 2019 Copyright: Ifigeneia Christodoulou
+          <a href="https://www.amdocs.com/optima"> Amdocs Optima SnT Team</a>
+        </div>
+        <div className="wrapper">
+          <img src={logo} alt="Logo" />
+        </div>
       </div>
+
     );
   }
 }

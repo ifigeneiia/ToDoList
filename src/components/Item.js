@@ -43,6 +43,7 @@ class Item extends Component {
     }
 
     handleCompleted = () => {
+        console.log('HI');
         let element = this.props.element;
         let newCompleted = this.state.completed;
         if (element.completed !== newCompleted) {
@@ -51,7 +52,6 @@ class Item extends Component {
         }
         this.setState({ completed: !this.state.completed });
     }
-
     handleSubmit() {
         let element = this.props.element;
         let newTitle = this.state.value;
@@ -75,8 +75,8 @@ class Item extends Component {
             
             <div>
                 <div className="flex-wrapper">
-                    {!this.state.editMode && <label className="switch" >
-                        <input type="checkbox" onChange={this.handleCompleted} checked={this.props.element.completed}/>
+                    {!this.state.editMode && <label className="switch"  >
+                        <input type="checkbox" onClick={this.handleCompleted} onChange={this.handleCompleted} checked={this.props.element.completed}/>
                         <span className="slider round" ></span>
                     </label>}
                     { this.props.element.completed === false ? <label>{this.props.element.title}</label> :

@@ -1,7 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import uuidv1 from "uuid";
 import 'font-awesome/css/font-awesome.min.css';
-import Media from 'react-media';
 
 class AddButton extends React.Component {
     handleSubmit = () => {
@@ -23,17 +22,10 @@ class AddButton extends React.Component {
     render() {
         return (
             <div>
-               <Media queries={{
-                small: "(max-width: 756px)",
-                large: "(min-width: 756px)"
-                }}>
-                {matches => (
-                <Fragment>
-                    { matches.small && <button className="addButton" onClick={this.handleSubmit}><i class="fa fa-check-square"></i></button> }
-                    { matches.large && <button className="addButton" onClick={this.handleSubmit}>Add Item</button> }
-                </Fragment>
-                )}
-                 </Media>
+                <button className="addButton" onClick={() => this.handleSubmit && this.handleSubmit()}>
+                    <span className="addButtonText">Add Item</span>
+                    <i className="fa fa-check-square addButtonIcon"></i>
+                </button>
             </div>
         );
     }

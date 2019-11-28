@@ -35,7 +35,11 @@ class ItemsList extends Component {
   }
 
   handleDelete = (item) => {
-    this.props.dispatch(deleteItemProcedure(item))
+    var ans = window.confirm("Are you sure to delete item?");
+    if(ans == true)
+    {
+      this.props.dispatch(deleteItemProcedure(item))
+    }
   }
 
   handleGet = () => {

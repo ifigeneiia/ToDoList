@@ -59,17 +59,18 @@ class Item extends Component {
         let element = this.props.element;
         let newTitle = this.state.value;
         if (newTitle === ""){
-            alert('Empty value!')
+            alert('Empty value!Please insert an item!')
         }
-        else if(newTitle.match(/\s/g)){
-            alert('You have whitespaces in your Title!')
+        else if(newTitle.match(/[Aa-zZ]/g)){
+            if (element.title !== newTitle) {
+                element.title = newTitle;
+                this.props.dispatch(editItemProcedure(element));
+            }
+            this.setState({ editMode: !this.state.editMode })
+          
         }
       else{
-        if (element.title !== newTitle) {
-            element.title = newTitle;
-            this.props.dispatch(editItemProcedure(element));
-        }
-        this.setState({ editMode: !this.state.editMode })
+        alert('Empty value!Please insert an item!')
     }
 }
 

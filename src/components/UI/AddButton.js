@@ -5,19 +5,20 @@ import 'font-awesome/css/font-awesome.min.css';
 class AddButton extends React.Component {
     handleSubmit = () => {
         let newItem = {};
-        var regex= RegExp(/\s/g);
+        var regex= RegExp(/[Aa-zZ]/g);
         newItem.title = this.props.itemTitle;
         let id = uuidv1();
         newItem.id = id;
 
         if (newItem.title === ""){
-            alert('Empty value!')
+            alert('Empty value!Please insert an item!')
         }
-        else if(regex.test(newItem.title)){
-            alert('You have whitespaces in your Title!')
+        else if(regex.test(newItem.title))
+        {
+            this.props.addNewItem && this.props.addNewItem(newItem);
         }
         else{
-            this.props.addNewItem && this.props.addNewItem(newItem);
+            alert('Empty value!Please insert an item!')
         }
     }
     render() {

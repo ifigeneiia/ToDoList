@@ -86,7 +86,7 @@ class ItemsList extends Component {
 
         <div>
           © 2019 Copyright: Ifigeneia Christodoulou
-          <a href="https://www.amdocs.com/optima"> Amdocs Optima SnT Team</a>
+          <a href="https://www.amdocs.com/optima" target="_blank"> Amdocs Optima SnT Team</a>
         </div>
         <div className="wrapper">
           <img src={logo} alt="Logo" />

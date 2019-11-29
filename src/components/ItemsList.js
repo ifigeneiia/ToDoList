@@ -73,11 +73,11 @@ class ItemsList extends Component {
     })
 
     return (
-      <div >
+      <div>
         <h4>Todo Items</h4>
         <ul>{itemsToRender}</ul>
         <h4>Completed Items</h4>
-        <ul>{itemsToRenderDone}</ul>
+        <ul >{itemsToRenderDone}</ul>
         {this.props.isGettingItems ? <Spinner /> : ''}
         {this.props.isGettinItemError ? 'Something went wrong!' : ''}
         {this.props.isAddingItem ? <Spinner /> : ''}

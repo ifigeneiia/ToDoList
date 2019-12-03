@@ -4,6 +4,7 @@ import { editItemProcedure } from "../actions/index";
 import { completedItemProcedure } from "../actions/index";
 import EditButton from './UI/EditButton';
 import SubmitButton from './UI/SubmitButton';
+import moment from 'moment';
 
 const mapStateToProps = state => {
     return {
@@ -85,6 +86,7 @@ class Item extends Component {
                     </label>}
                     { this.props.element.completed === false ? <label>{this.props.element.title}</label> :
                     <label className="line" >{this.props.element.title}</label>}
+                    <label>{this.props.element.date}</label>
                 </div>
                 <div className="flex-wrapper">
                     {this.state.editMode && <input type="text" value={this.state.value} onChange={this.handleChange} />}

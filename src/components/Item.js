@@ -4,7 +4,6 @@ import { editItemProcedure } from "../actions/index";
 import { completedItemProcedure } from "../actions/index";
 import EditButton from './UI/EditButton';
 import SubmitButton from './UI/SubmitButton';
-import moment from 'moment';
 
 const mapStateToProps = state => {
     return {

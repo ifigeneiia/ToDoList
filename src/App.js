@@ -6,15 +6,20 @@ import Form from './components/Form';
 class App extends Component {
   render() {
     return (
-      
-      <div className="App">
-        <div className="header">
-          <h1>To-Do List</h1>
-          <Form />
+      <div className="container" >
+        <div className="row" >
+          <div className="col-12">
+            <div className="App">
+            <div className="header">
+              <h1>To-Do List</h1>
+              <Form />
+            </div>
+              <ItemsList />
+              
+            </div>
+          </div>
         </div>
-        <ItemsList />
-        </div>
-
+      </div>
     );
   }
 }

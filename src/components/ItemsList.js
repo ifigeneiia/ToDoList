@@ -28,8 +28,9 @@ class ItemsList extends Component {
     this.state = {
       value: "",
       valueComp:"",
-      sortType: 'asc',
-      sortTypeCompleted: 'asc',
+      sortType: 'None',
+      sortTypeCompleted: 'None',
+      sortValue: "Select an Option"
     };
   }
 
@@ -54,7 +55,11 @@ class ItemsList extends Component {
     this.setState({ sortTypeComp });
   }
   handleChange = (event) => {
-    this.setState({ value: event.target.value });
+    this.setState({ value: event.target.value});
+  }
+  handleChangeValue = (event) => {
+    console.log("HI");
+    this.setState({sortValue: event.target.sortValue });
   }
   handleChangeComp = (event) => {
     this.setState({ valueComp: event.target.value });
@@ -86,7 +91,7 @@ class ItemsList extends Component {
     
     //SORT BY TITLE TO-DO ITEMS
     const itemsSorted = itemsTodo.sort((a, b) => {
-      const isReversed = (this.state.sortType === 'asc') ? 1 : -1;
+      const isReversed = (this.state.sortType === 'Asc') ? 1 : -1;
       return isReversed * a.title.localeCompare(b.title)
     });
     itemsToRender = itemsSorted.map((element, i) => {
@@ -98,7 +103,7 @@ class ItemsList extends Component {
     });
     //SORT BY DATE TO-DO ITEMS
     const itemsSortedDate = itemsTodo.sort((a, b) => {
-      const isReversed = (this.state.sortType === 'asc') ? 1 : -1;
+      const isReversed = (this.state.sortType === 'Asc') ? 1 : -1;
       return isReversed * (b.id - a.id)
     });
     itemsToRender = itemsSortedDate.map((element, i) => {
@@ -132,7 +137,7 @@ class ItemsList extends Component {
     })
     //SORT BY TITLE COMPLETED ITEMS
     const itemsSortedComp = itemsTodoCompleted.sort((a, b) => {
-      const isReversed = (this.state.sortTypeComp === 'asc') ? 1 : -1;
+      const isReversed = (this.state.sortTypeComp === 'Asc') ? 1 : -1;
       return isReversed * a.title.localeCompare(b.title)
     });
     itemsToRenderDone = itemsSortedComp.map((element, i) => {
@@ -145,7 +150,7 @@ class ItemsList extends Component {
     });
       //SORT BY DATE COMPLETED ITEMS
       const itemsSortedDateComp = itemsTodoCompleted.sort((a, b) => {
-        const isReversed = (this.state.sortTypeComp === 'asc') ? 1 : -1;
+        const isReversed = (this.state.sortTypeComp === 'Asc') ? 1 : -1;
         return isReversed * (b.id - a.id)
       });
       itemsToRenderDone = itemsSortedDateComp.map((element, i) => {
@@ -157,16 +162,16 @@ class ItemsList extends Component {
       });
      
     return (
-      <div>
+      <div >
         <h4>Todo Items</h4>
         <div className="dropdown">
-          <button className="dropbtn">Sort By</button>
+        <button className="dropbtn">{this.state.sortValue}</button>
           <div className="dropdown-content">
-            <a href="/" onClick={() => this.handleSort('none')}>None</a>
-            <a href="/" onClick={() => this.handleSort('asc')}>Name Asc</a>
-            <a href="/" onClick={() => this.handleSort('desc')}>Name Desc</a>
-            <a href="/" onClick={() => this.handleSort('asc')}>Date Asc</a>
-            <a href="/" onClick={() => this.handleSort('desc')}>Date Desc</a>
+            <a href="#" onClick={() => this.handleSort('None') && this.handleChangeValue('None')}>None</a>
+            <a href="#" onClick={() => this.handleSort('Asc') && this.handleChangeValue('Name Asc')}>Name Asc</a>
+            <a href="#" onClick={() => this.handleSort('Desc') && this.handleChangeValue('Name Desc')}>Name Desc</a>
+            <a href="#" onClick={() => this.handleSort('Asc') && this.handleChangeValue('Date Asc')} >Date Asc</a>
+            <a href="#" onClick={() => this.handleSort('Desc') && this.handleChangeValue('Date Desc')}>Date Desc</a>
           </div>
         </div>
         <input type="text" placeholder="Filter..." value={this.state.value} onChange={this.handleChange}></input>
@@ -174,13 +179,13 @@ class ItemsList extends Component {
         {this.state.value !== "" ? <ul>{itemsToFilter}</ul> : <ul>{itemsToRender}</ul>}
         <h4>Completed Items</h4>
         <div className="dropdown">
-          <button className="dropbtn">Sort By</button>
+          <button className="dropbtn">{this.state.sortValue}</button>
           <div className="dropdown-content">
-            <a href="/" onClick={() => this.handleSortComp('none')}>None</a>
-            <a href="/" onClick={() => this.handleSortComp('asc')}>Name Asc</a>
-            <a href="/" onClick={() => this.handleSortComp('desc')}>Name Desc</a>
-            <a href="/" onClick={() => this.handleSortComp('asc')}>Date Asc</a>
-            <a href="/" onClick={() => this.handleSortComp('desc')}>Date Desc</a>
+            <a href="#" onClick={() => this.handleSortComp('none')}>None</a>
+            <a href="#" onClick={() => this.handleSortComp('asc')}>Name Asc</a>
+            <a href="#" onClick={() => this.handleSortComp('desc')}>Name Desc</a>
+            <a href="#" onClick={() => this.handleSortComp('asc')}>Date Asc</a>
+            <a href="#" onClick={() => this.handleSortComp('desc')}>Date Desc</a>
           </div>
         </div>
         <input type="text" placeholder="Filter..." value={this.state.valueComp} onChange={this.handleChangeComp}></input>

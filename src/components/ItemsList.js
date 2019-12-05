@@ -30,10 +30,13 @@ class ItemsList extends Component {
       valueComp: "",
       sortType: 'None',
       sortTypeComp: 'None',
-      sortValue: "Select an Option"
+      sortValue: "Select an Option",
+      currentPage: 1,
+      postsPerPage: 3,
+      currentPageComp: 1,
+      postsPerPageComp: 3,
     };
   }
-
   UNSAFE_componentWillMount() {
     this.handleGet();
   }
@@ -60,7 +63,23 @@ class ItemsList extends Component {
   handleChangeComp = (event) => {
     this.setState({ valueComp: event.target.value });
   }
-
+  handleChangeSort = (event) => {
+    this.setState({ sortValue: event.target.value });
+    console.log(this.state.sortValue);
+  }
+  handleClick(event) {
+    this.setState({ currentPage: event.target.value });
+  }
+  setCurrentPage = (pageNumber) => {
+    this.setState({
+      currentPage: pageNumber
+    })
+  }
+  setCurrentPageComp = (pageNumberComp) => {
+    this.setState({
+      currentPageComp: pageNumberComp
+    })
+  }
 
   render() {
     //TODO ITEMS
@@ -170,11 +189,71 @@ class ItemsList extends Component {
         </li>)
     });
 
+    // Pagination TO-DO ITEMS
+    const { currentPage, postsPerPage } = this.state;
+    const indexOfLastTodo = currentPage * postsPerPage;
+    const indexOfFirstTodo = indexOfLastTodo - postsPerPage;
+    const currentPosts = itemsTodo.slice(indexOfFirstTodo, indexOfLastTodo);
+
+    itemsToRender = currentPosts.map((element, i) => {
+      return (
+        <li className="list-item" key={i}>
+          <Item element={element} />
+          <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
+        </li>)
+    });
+
+    // Logic for displaying page numbers
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(itemsTodo.length / postsPerPage); i++) {
+      pageNumbers.push(i);
+    }
+    const paginate = pageNumber => this.setCurrentPage(pageNumber);
+    const renderPageNumbers = pageNumbers.map(number => {
+      return (
+        <li key={number}>
+          <a href='!#' onClick={() => paginate(number)} >
+            {number}<span className="sr-only"></span>
+          </a>
+        </li>
+      )
+    });
+    // Pagination COMPLETED ITEMS
+    const { currentPageComp, postsPerPageComp } = this.state;
+    const indexOfLastTodoComp = currentPageComp * postsPerPageComp;
+    const indexOfFirstTodoComp = indexOfLastTodoComp - postsPerPageComp;
+    const currentPostsComp = itemsTodoCompleted.slice(indexOfFirstTodoComp, indexOfLastTodoComp);
+
+    itemsToRenderDone = currentPostsComp.map((element, i) => {
+      return(
+        <li className="list-item" key={i}>
+          <Item element={element} />
+          <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
+        </li>)
+    });
+
+    // Logic for displaying page numbers
+    const pageNumbersComp = [];
+    for (let i = 1; i <= Math.ceil(itemsTodoCompleted.length / postsPerPageComp); i++) {
+      pageNumbersComp.push(i);
+    }
+    const paginateComp = pageNumberComp => this.setCurrentPageComp(pageNumberComp);
+    const renderPageNumbersComp = pageNumbersComp.map(numberComp => {
+      return (
+        <li key={numberComp}>
+          <a href='!#' onClick={() => paginateComp(numberComp)} >
+            {numberComp}<span className="sr-only"></span>
+          </a>
+        </li>
+      )
+    });
+
+
     return (
-      <div >
+      <div>
         <h4>Todo Items</h4>
         <div className="dropdown">
-          <button className="dropbtn">{this.state.sortValue}</button>
+          <button className="dropbtn" value={this.state.sortValue} onClick={this.handleChangeSort}>{this.state.sortValue}</button>
           <div className="dropdown-content">
             <a href="#" onClick={() => this.handleSort('None')}>None</a>
             <a href="#" onClick={() => this.handleSort('Asc')}>Name Asc</a>
@@ -186,6 +265,11 @@ class ItemsList extends Component {
         <input type="text" placeholder="Filter..." value={this.state.value} onChange={this.handleChange}></input>
         <i className="fa fa-search"></i>
         {this.state.value !== "" ? <ul>{itemsToFilter}</ul> : <ul>{itemsToRender}</ul>}
+        <div>
+          <ul className="horizontal-list">
+            {renderPageNumbers}
+          </ul>
+        </div>
         <h4>Completed Items</h4>
         <div className="dropdown">
           <button className="dropbtn">{this.state.sortValue}</button>
@@ -200,6 +284,11 @@ class ItemsList extends Component {
         <input type="text" placeholder="Filter..." value={this.state.valueComp} onChange={this.handleChangeComp}></input>
         <i className="fa fa-search"></i>
         {this.state.valueComp !== "" ? <ul>{itemsToFilterDone}</ul> : <ul>{itemsToRenderDone}</ul>}
+        <div>
+          <ul className="horizontal-list">
+          {renderPageNumbersComp}
+          </ul>
+        </div>
         {this.props.isGettingItems ? <Spinner /> : ''}
         {this.props.isGettinItemError ? 'Something went wrong!' : ''}
         {this.props.isAddingItem ? <Spinner /> : ''}
@@ -217,7 +306,7 @@ class ItemsList extends Component {
         <div className="wrapper">
           <img src={logo} alt="Logo" />
         </div>
-      </div>
+      </div >
 
     );
   }

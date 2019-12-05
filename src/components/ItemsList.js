@@ -265,10 +265,14 @@ class ItemsList extends Component {
         <input type="text" placeholder="Filter..." value={this.state.value} onChange={this.handleChange}></input>
         <i className="fa fa-search"></i>
         {this.state.value !== "" ? <ul>{itemsToFilter}</ul> : <ul>{itemsToRender}</ul>}
-        <div>
+        <div className="container" >
+        <div className="row" >
+          <div className="col-12">
           <ul className="horizontal-list">
             {renderPageNumbers}
           </ul>
+          </div>
+        </div>
         </div>
         <h4>Completed Items</h4>
         <div className="dropdown">
@@ -284,10 +288,14 @@ class ItemsList extends Component {
         <input type="text" placeholder="Filter..." value={this.state.valueComp} onChange={this.handleChangeComp}></input>
         <i className="fa fa-search"></i>
         {this.state.valueComp !== "" ? <ul>{itemsToFilterDone}</ul> : <ul>{itemsToRenderDone}</ul>}
-        <div>
+        <div className="container" >
+        <div className="row" >
+          <div className="col-12">
           <ul className="horizontal-list">
           {renderPageNumbersComp}
           </ul>
+        </div>
+        </div>
         </div>
         {this.props.isGettingItems ? <Spinner /> : ''}
         {this.props.isGettinItemError ? 'Something went wrong!' : ''}

@@ -470,13 +470,10 @@ input:checked + .slider:before {
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
 .horizontal-list {
-	min-width: 696px;
 	list-style: none;
   padding-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-	}
-.horizontal-list li {
-		display: inline;
-	}
+  }
+

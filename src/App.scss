@@ -1,16 +1,8 @@
-@media (min-width: 768px) {  
-  .App {
-    text-align: center;
-    position: relative;
-  }
-}
 
-@media (max-width: 768px) {  
-    .App {
-      text-align: center;
-      position: relative;
-    }
-  }
+.App {
+  text-align: center;
+  position: relative;
+}
 
 .App-logo {
   height: 40vmin;
@@ -476,4 +468,7 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: center;
   }
+  
+
+  
 

@@ -191,8 +191,8 @@ class ItemsList extends Component {
 
     // Pagination TO-DO ITEMS
     const { currentPage, postsPerPage } = this.state;
-    const indexOfLastTodo = currentPage * postsPerPage;
-    const indexOfFirstTodo = indexOfLastTodo - postsPerPage;
+    let indexOfLastTodo = currentPage * postsPerPage;
+    let indexOfFirstTodo = indexOfLastTodo - postsPerPage;
     const currentPosts = itemsTodo.slice(indexOfFirstTodo, indexOfLastTodo);
 
     itemsToRender = currentPosts.map((element, i) => {
@@ -211,13 +211,12 @@ class ItemsList extends Component {
     const paginate = pageNumber => this.setCurrentPage(pageNumber);
     const renderPageNumbers = pageNumbers.map(number => {
       return (
-        <li key={number}>
-          <a href='!#' onClick={() => paginate(number)} >
-            {number}<span className="sr-only"></span>
-          </a>
+        <li key={number} >
+          <a href='!#' onClick={() => paginate(number)}>{number}</a>
         </li>
       )
     });
+    console.log(currentPosts.length);
     // Pagination COMPLETED ITEMS
     const { currentPageComp, postsPerPageComp } = this.state;
     const indexOfLastTodoComp = currentPageComp * postsPerPageComp;
@@ -225,7 +224,7 @@ class ItemsList extends Component {
     const currentPostsComp = itemsTodoCompleted.slice(indexOfFirstTodoComp, indexOfLastTodoComp);
 
     itemsToRenderDone = currentPostsComp.map((element, i) => {
-      return(
+      return (
         <li className="list-item" key={i}>
           <Item element={element} />
           <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
@@ -242,13 +241,10 @@ class ItemsList extends Component {
       return (
         <li key={numberComp}>
           <a href='!#' onClick={() => paginateComp(numberComp)} >
-            {numberComp}<span className="sr-only"></span>
+            {numberComp}
           </a>
-        </li>
-      )
+        </li>)
     });
-
-
     return (
       <div>
         <h4>Todo Items</h4>
@@ -266,13 +262,19 @@ class ItemsList extends Component {
         <i className="fa fa-search"></i>
         {this.state.value !== "" ? <ul>{itemsToFilter}</ul> : <ul>{itemsToRender}</ul>}
         <div className="container" >
-        <div className="row" >
-          <div className="col-12">
-          <ul className="horizontal-list">
-            {renderPageNumbers}
-          </ul>
+          <div className="row" >
+            <div className="col-12">
+              <ul className="horizontal-list">
+                <li>
+                  <a href='!#'  onClick={() => paginate(this.state.currentPage > 1 ? this.state.currentPage-1 : this.state.currentPage)} >Previous</a>
+                </li>
+                {renderPageNumbers}
+                <li>
+                  <a href='!#' onClick={() => paginate(currentPosts.length < 3  ? this.state.currentPage : this.state.currentPage+1)}>Next</a>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
         </div>
         <h4>Completed Items</h4>
         <div className="dropdown">
@@ -289,13 +291,19 @@ class ItemsList extends Component {
         <i className="fa fa-search"></i>
         {this.state.valueComp !== "" ? <ul>{itemsToFilterDone}</ul> : <ul>{itemsToRenderDone}</ul>}
         <div className="container" >
-        <div className="row" >
-          <div className="col-12">
-          <ul className="horizontal-list">
-          {renderPageNumbersComp}
-          </ul>
-        </div>
-        </div>
+          <div className="row" >
+            <div className="col-12">
+              <ul className="horizontal-list">
+              <li>
+                  <a href='!#'  onClick={() => paginateComp(this.state.currentPageComp > 1 ? this.state.currentPageComp-1 : this.state.currentPageComp)} >Previous</a>
+                </li>
+                {renderPageNumbersComp}
+                <li>
+                  <a href='!#' onClick={() => paginateComp(currentPostsComp.length < 3  ? this.state.currentPageComp : this.state.currentPageComp+1)}>Next</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         {this.props.isGettingItems ? <Spinner /> : ''}
         {this.props.isGettinItemError ? 'Something went wrong!' : ''}

@@ -10,6 +10,7 @@ export const addItemProcedure = (item) => {
              console.log(response.data.name);
              item.firebaseID = response.data.name
              item.completed = false
+             item.date = Date.now()
              return axiosInstance.patch('/items/' + item.firebaseID + '.json',item)
             })
                                 .then(() =>{

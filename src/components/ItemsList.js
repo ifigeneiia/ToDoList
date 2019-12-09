@@ -28,9 +28,8 @@ class ItemsList extends Component {
     this.state = {
       value: "",
       valueComp: "",
-      sortType: 'None',
-      sortTypeComp: 'None',
-      sortValue: "Select an Option",
+      sortType: 'Select an Option',
+      sortTypeComp: 'Select an Option',
       currentPage: 1,
       postsPerPage: 3,
       currentPageComp: 1,
@@ -54,7 +53,13 @@ class ItemsList extends Component {
   handleSort = (sortType) => {
     this.setState({ sortType });
   }
+  handleSortDate = (sortType) => {
+    this.setState({ sortType });
+  }
   handleSortComp = (sortTypeComp) => {
+    this.setState({ sortTypeComp });
+  }
+  handleSortCompDate = (sortTypeComp) => {
     this.setState({ sortTypeComp });
   }
   handleChange = (event) => {
@@ -62,13 +67,6 @@ class ItemsList extends Component {
   }
   handleChangeComp = (event) => {
     this.setState({ valueComp: event.target.value });
-  }
-  handleChangeSort = (event) => {
-    this.setState({ sortValue: event.target.value });
-    console.log(this.state.sortValue);
-  }
-  handleClick(event) {
-    this.setState({ currentPage: event.target.value });
   }
   setCurrentPage = (pageNumber) => {
     this.setState({
@@ -86,15 +84,16 @@ class ItemsList extends Component {
     const itemsTodo = this.props.items.filter((element) => {
       return (element.completed === false)
     });
-    const filterItems = itemsTodo.filter(element => {
-      return element.title.toLowerCase().indexOf(this.state.value.toLocaleLowerCase()) !== -1
-    })
     let itemsToRender = itemsTodo.map((element, i) => {
       return (
         <li className="list-item" key={i} >
           <Item element={element} />
           <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
         </li>)
+    })
+    //SEARCH
+    const filterItems = itemsTodo.filter(element => {
+      return element.title.toLowerCase().indexOf(this.state.value.toLocaleLowerCase()) !== -1
     })
     const itemsToFilter = filterItems.map((element, i) => {
       return (
@@ -105,50 +104,67 @@ class ItemsList extends Component {
     })
 
     //SORT BY TITLE TO-DO ITEMS
-    let itemsSorted = itemsTodo;
-    if (this.state.sortType !== 'None') {
-      itemsSorted = itemsTodo.sort((a, b) => {
-        const isReversed = (this.state.sortType === 'Asc') ? 1 : -1;
+    if (this.state.sortType !== 'Select an Option' && this.state.sortType !== 'Date Asc' && this.state.sortType !== 'Date Desc') {
+      let itemsSorted = itemsTodo.sort((a, b) => {
+        const isReversed = (this.state.sortType === 'Name Asc') ? 1 : -1;
         return isReversed * a.title.localeCompare(b.title)
       });
+
+      itemsToRender = itemsSorted.map((element, i) => {
+        return (
+          <li className="list-item" key={i}>
+            <Item element={element} />
+            <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
+          </li>)
+      });
+    } else {
+      itemsToRender = itemsTodo.map((element, i) => {
+        return (
+          <li className="list-item" key={i} >
+            <Item element={element} />
+            <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
+          </li>)
+      })
     }
-    itemsToRender = itemsSorted.map((element, i) => {
-      return (
-        <li className="list-item" key={i}>
-          <Item element={element} />
-          <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
-        </li>)
-    });
 
     //SORT BY DATE TO-DO ITEMS
-    let itemsSortedDate = itemsTodo;
-    if (this.state.sortType !== 'None') {
-      itemsSortedDate = itemsTodo.sort((a, b) => {
-        const isReversed = (this.state.sortType === 'Asc') ? 1 : -1;
-        return isReversed * (b.id - a.id)
+    if (this.state.sortType !== 'Select an Option' && this.state.sortType !== 'Name Asc' && this.state.sortType !== 'Name Desc') {
+      let itemsSortedDate = itemsTodo.sort((a, b) => {
+        const isReversed = (this.state.sortType=== 'Date Asc') ? 1 : -1;
+        return isReversed * (b.date - a.date)
       });
+
+      itemsToRender = itemsSortedDate.map((element, i) => {
+        return (
+          <li className="list-item" key={i}>
+            <Item element={element} />
+            <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
+          </li>)
+      });
+    } else {
+      itemsToRender = itemsTodo.map((element, i) => {
+        return (
+          <li className="list-item" key={i} >
+            <Item element={element} />
+            <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
+          </li>)
+      })
     }
-    itemsToRender = itemsSortedDate.map((element, i) => {
-      return (
-        <li className="list-item" key={i}>
-          <Item element={element} />
-          <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
-        </li>)
-    });
 
     //COMPLETED ITEMS
     const itemsTodoCompleted = this.props.items.filter((element) => {
       return (element.completed === true)
     });
-    const filterItemsComp = itemsTodoCompleted.filter(element => {
-      return element.title.toLowerCase().indexOf(this.state.valueComp.toLocaleLowerCase()) !== -1
-    })
     let itemsToRenderDone = itemsTodoCompleted.map((element, i) => {
       return (
         <li className="list-item" key={i}>
           <Item element={element} />
           <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
         </li>)
+    })
+    //SEARCH
+    const filterItemsComp = itemsTodoCompleted.filter(element => {
+      return element.title.toLowerCase().indexOf(this.state.valueComp.toLocaleLowerCase()) !== -1
     })
     const itemsToFilterDone = filterItemsComp.map((element, i) => {
       return (
@@ -158,36 +174,53 @@ class ItemsList extends Component {
         </li>)
     })
     //SORT BY TITLE COMPLETED ITEMS
-    let itemsSortedComp = itemsTodoCompleted;
-    if (this.state.sortTypeComp !== 'None') {
-      itemsSortedComp = itemsTodoCompleted.sort((a, b) => {
-        const isReversed = (this.state.sortTypeComp === 'Asc') ? 1 : -1;
+    if (this.state.sortTypeComp !== 'Select an Option' && this.state.sortTypeComp !== 'Date Asc' && this.state.sortTypeComp !== 'Date Desc') {
+      let itemsSortedComp = itemsTodoCompleted.sort((a, b) => {
+        const isReversed = (this.state.sortTypeComp === 'Name Asc') ? 1 : -1;
         return isReversed * a.title.localeCompare(b.title)
       });
-    }
-    itemsToRenderDone = itemsSortedComp.map((element, i) => {
-      return (
-        <li className="list-item" key={i}>
-          <Item element={element} />
-          <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
-        </li>
-      )
-    });
-    //SORT BY DATE COMPLETED ITEMS
-    let itemsSortedDateComp = itemsTodoCompleted;
-    if (this.state.sortTypeComp !== 'None') {
-      itemsSortedDateComp = itemsTodoCompleted.sort((a, b) => {
-        const isReversed = (this.state.sortTypeComp === 'Asc') ? 1 : -1;
-        return isReversed * (b.id - a.id)
+      itemsToRenderDone = itemsSortedComp.map((element, i) => {
+        return (
+          <li className="list-item" key={i}>
+            <Item element={element} />
+            <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
+          </li>
+        )
       });
+    } else {
+      itemsToRenderDone = itemsTodoCompleted.map((element, i) => {
+        return (
+          <li className="list-item" key={i}>
+            <Item element={element} />
+            <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
+          </li>)
+      })
     }
-    itemsToRenderDone = itemsSortedDateComp.map((element, i) => {
-      return (
-        <li className="list-item" key={i}>
-          <Item element={element} />
-          <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
-        </li>)
-    });
+
+    //SORT BY DATE COMPLETED ITEMS
+    let itemsSortedDateComp = itemsTodoCompleted
+    if (this.state.sortTypeComp !== 'Select an Option' && this.state.sortTypeComp !== 'Name Asc' && this.state.sortTypeComp !== 'Name Desc') {
+      itemsSortedDateComp = itemsTodoCompleted.sort((a, b) => {
+        const isReversed = (this.state.sortTypeComp === 'Date Asc') ? 1 : -1;
+        return isReversed * (b.date - a.date)
+      });
+
+      itemsToRenderDone = itemsSortedDateComp.map((element, i) => {
+        return (
+          <li className="list-item" key={i}>
+            <Item element={element} />
+            <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
+          </li>)
+      });
+    } else {
+      itemsToRenderDone = itemsTodoCompleted.map((element, i) => {
+        return (
+          <li className="list-item" key={i}>
+            <Item element={element} />
+            <button className="close" onClick={() => this.handleDelete(element)}><span>&times;</span></button>
+          </li>)
+      })
+    }
 
     // Pagination TO-DO ITEMS
     const { currentPage, postsPerPage } = this.state;
@@ -216,7 +249,6 @@ class ItemsList extends Component {
         </li>
       )
     });
-    console.log(currentPosts.length);
     // Pagination COMPLETED ITEMS
     const { currentPageComp, postsPerPageComp } = this.state;
     const indexOfLastTodoComp = currentPageComp * postsPerPageComp;
@@ -251,13 +283,13 @@ class ItemsList extends Component {
         {itemsTodo.length !== 0 ?
           <div>
             <div className="dropdown">
-              <button className="dropbtn" value={this.state.sortValue} onClick={this.handleChangeSort}>{this.state.sortValue}</button>
+               <button className="dropbtn" value={this.state.sortType}>{this.state.sortType}</button> 
               <div className="dropdown-content">
-                <a href="#" onClick={() => this.handleSort('None')}>None</a>
-                <a href="#" onClick={() => this.handleSort('Asc')}>Name Asc</a>
-                <a href="#" onClick={() => this.handleSort('Desc')}>Name Desc</a>
-                <a href="#" onClick={() => this.handleSort('Asc')} >Date Asc</a>
-                <a href="#" onClick={() => this.handleSort('Desc')}>Date Desc</a>
+                <a href="#" onClick={() => this.handleSort('Select an Option')}>None</a>
+                <a href="#" onClick={() => this.handleSort('Name Asc')}>Name Asc</a>
+                <a href="#" onClick={() => this.handleSort('Name Desc')}>Name Desc</a>
+                <a href="#" onClick={() => this.handleSortDate('Date Asc')} >Date Asc</a>
+                <a href="#" onClick={() => this.handleSortDate('Date Desc')}>Date Desc</a>
               </div>
             </div>
             <input type="text" placeholder="Filter..." value={this.state.value} onChange={this.handleChange}></input>
@@ -269,30 +301,30 @@ class ItemsList extends Component {
             <div className="row" >
               <div className="col-12">
                 <ul className="horizontal-list">
-                {itemsTodo.length >= 4 ?
-                  <li>
-                    <a href='!#' onClick={() => paginate(this.state.currentPage > 1 ? this.state.currentPage - 1 : this.state.currentPage)} >Previous</a>
-                  </li> : ""}
+                  {itemsTodo.length >= 4 ?
+                    <li>
+                      <a href='!#' onClick={() => paginate(this.state.currentPage > 1 ? this.state.currentPage - 1 : this.state.currentPage)} >Previous</a>
+                    </li> : ""}
                   {renderPageNumbers}
                   {itemsTodo.length >= 4 ?
-                  <li>
-                    <a href='!#' onClick={() => paginate(currentPosts.length < 3 ? this.state.currentPage : this.state.currentPage + 1)}>Next</a>
-                  </li> : ""}
+                    <li>
+                      <a href='!#' onClick={() => paginate(currentPosts.length < 3 ? this.state.currentPage : this.state.currentPage + 1)}>Next</a>
+                    </li> : ""}
                 </ul>
               </div>
             </div>
           </div> : ""}
-          <h4>Completed Items</h4>
+        <h4>Completed Items</h4>
         {itemsTodoCompleted.length !== 0 ?
           <div>
             <div className="dropdown">
-              <button className="dropbtn">{this.state.sortValue}</button>
+              <button className="dropbtn" value={this.state.sortTypeComp}>{this.state.sortTypeComp}</button>
               <div className="dropdown-content">
-                <a href="#" onClick={() => this.handleSortComp('None')}>None</a>
-                <a href="#" onClick={() => this.handleSortComp('Asc')}>Name Asc</a>
-                <a href="#" onClick={() => this.handleSortComp('Desc')}>Name Desc</a>
-                <a href="#" onClick={() => this.handleSortComp('Asc')}>Date Asc</a>
-                <a href="#" onClick={() => this.handleSortComp('Desc')}>Date Desc</a>
+                <a href="#" onClick={() => this.handleSortComp('Select an Option')}>None</a>
+                <a href="#" onClick={() => this.handleSortComp('Name Asc')}>Name Asc</a>
+                <a href="#" onClick={() => this.handleSortComp('Name Desc')}>Name Desc</a>
+                <a href="#" onClick={() => this.handleSortCompDate('Date Asc')}>Date Asc</a>
+                <a href="#" onClick={() => this.handleSortCompDate('Date Desc')}>Date Desc</a>
               </div>
             </div>
             <input type="text" placeholder="Filter..." value={this.state.valueComp} onChange={this.handleChangeComp}></input>
@@ -304,15 +336,15 @@ class ItemsList extends Component {
             <div className="row" >
               <div className="col-12">
                 <ul className="horizontal-list">
-                {itemsTodoCompleted.length >= 4 ?
-                  <li>
-                    <a href='!#' onClick={() => paginateComp(this.state.currentPageComp > 1 ? this.state.currentPageComp - 1 : this.state.currentPageComp)} >Previous</a>
-                  </li> : ""}
+                  {itemsTodoCompleted.length >= 4 ?
+                    <li>
+                      <a href='!#' onClick={() => paginateComp(this.state.currentPageComp > 1 ? this.state.currentPageComp - 1 : this.state.currentPageComp)} >Previous</a>
+                    </li> : ""}
                   {renderPageNumbersComp}
                   {itemsTodoCompleted.length >= 4 ?
-                  <li>
-                    <a href='!#' onClick={() => paginateComp(currentPostsComp.length < 3 ? this.state.currentPageComp : this.state.currentPageComp + 1)}>Next</a>
-                  </li>: ""}
+                    <li>
+                      <a href='!#' onClick={() => paginateComp(currentPostsComp.length < 3 ? this.state.currentPageComp : this.state.currentPageComp + 1)}>Next</a>
+                    </li> : ""}
                 </ul>
               </div>
             </div>

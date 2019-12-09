@@ -240,7 +240,7 @@ class ItemsList extends Component {
     const renderPageNumbersComp = pageNumbersComp.map(numberComp => {
       return (
         <li key={numberComp}>
-          <a href='!#' onClick={() => paginateComp(numberComp)} >
+          <a className="number" href='!#' onClick={() => paginateComp(numberComp)} >
             {numberComp}
           </a>
         </li>)
@@ -269,13 +269,15 @@ class ItemsList extends Component {
             <div className="row" >
               <div className="col-12">
                 <ul className="horizontal-list">
+                {itemsTodo.length >= 4 ?
                   <li>
                     <a href='!#' onClick={() => paginate(this.state.currentPage > 1 ? this.state.currentPage - 1 : this.state.currentPage)} >Previous</a>
-                  </li>
+                  </li> : ""}
                   {renderPageNumbers}
+                  {itemsTodo.length >= 4 ?
                   <li>
                     <a href='!#' onClick={() => paginate(currentPosts.length < 3 ? this.state.currentPage : this.state.currentPage + 1)}>Next</a>
-                  </li>
+                  </li> : ""}
                 </ul>
               </div>
             </div>
@@ -302,13 +304,15 @@ class ItemsList extends Component {
             <div className="row" >
               <div className="col-12">
                 <ul className="horizontal-list">
+                {itemsTodoCompleted.length >= 4 ?
                   <li>
                     <a href='!#' onClick={() => paginateComp(this.state.currentPageComp > 1 ? this.state.currentPageComp - 1 : this.state.currentPageComp)} >Previous</a>
-                  </li>
+                  </li> : ""}
                   {renderPageNumbersComp}
+                  {itemsTodoCompleted.length >= 4 ?
                   <li>
                     <a href='!#' onClick={() => paginateComp(currentPostsComp.length < 3 ? this.state.currentPageComp : this.state.currentPageComp + 1)}>Next</a>
-                  </li>
+                  </li>: ""}
                 </ul>
               </div>
             </div>

@@ -248,63 +248,71 @@ class ItemsList extends Component {
     return (
       <div>
         <h4>Todo Items</h4>
-        <div className="dropdown">
-          <button className="dropbtn" value={this.state.sortValue} onClick={this.handleChangeSort}>{this.state.sortValue}</button>
-          <div className="dropdown-content">
-            <a href="#" onClick={() => this.handleSort('None')}>None</a>
-            <a href="#" onClick={() => this.handleSort('Asc')}>Name Asc</a>
-            <a href="#" onClick={() => this.handleSort('Desc')}>Name Desc</a>
-            <a href="#" onClick={() => this.handleSort('Asc')} >Date Asc</a>
-            <a href="#" onClick={() => this.handleSort('Desc')}>Date Desc</a>
-          </div>
-        </div>
-        <input type="text" placeholder="Filter..." value={this.state.value} onChange={this.handleChange}></input>
-        <i className="fa fa-search"></i>
+        {itemsTodo.length !== 0 ?
+          <div>
+            <div className="dropdown">
+              <button className="dropbtn" value={this.state.sortValue} onClick={this.handleChangeSort}>{this.state.sortValue}</button>
+              <div className="dropdown-content">
+                <a href="#" onClick={() => this.handleSort('None')}>None</a>
+                <a href="#" onClick={() => this.handleSort('Asc')}>Name Asc</a>
+                <a href="#" onClick={() => this.handleSort('Desc')}>Name Desc</a>
+                <a href="#" onClick={() => this.handleSort('Asc')} >Date Asc</a>
+                <a href="#" onClick={() => this.handleSort('Desc')}>Date Desc</a>
+              </div>
+            </div>
+            <input type="text" placeholder="Filter..." value={this.state.value} onChange={this.handleChange}></input>
+            <i className="fa fa-search"></i>
+          </div> : ""}
         {this.state.value !== "" ? <ul>{itemsToFilter}</ul> : <ul>{itemsToRender}</ul>}
-        <div className="container" >
-          <div className="row" >
-            <div className="col-12">
-              <ul className="horizontal-list">
-                <li>
-                  <a href='!#'  onClick={() => paginate(this.state.currentPage > 1 ? this.state.currentPage-1 : this.state.currentPage)} >Previous</a>
-                </li>
-                {renderPageNumbers}
-                <li>
-                  <a href='!#' onClick={() => paginate(currentPosts.length < 3  ? this.state.currentPage : this.state.currentPage+1)}>Next</a>
-                </li>
-              </ul>
+        {itemsTodo.length !== 0 ?
+          <div className="container" >
+            <div className="row" >
+              <div className="col-12">
+                <ul className="horizontal-list">
+                  <li>
+                    <a href='!#' onClick={() => paginate(this.state.currentPage > 1 ? this.state.currentPage - 1 : this.state.currentPage)} >Previous</a>
+                  </li>
+                  {renderPageNumbers}
+                  <li>
+                    <a href='!#' onClick={() => paginate(currentPosts.length < 3 ? this.state.currentPage : this.state.currentPage + 1)}>Next</a>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </div>
-        <h4>Completed Items</h4>
-        <div className="dropdown">
-          <button className="dropbtn">{this.state.sortValue}</button>
-          <div className="dropdown-content">
-            <a href="#" onClick={() => this.handleSortComp('None')}>None</a>
-            <a href="#" onClick={() => this.handleSortComp('Asc')}>Name Asc</a>
-            <a href="#" onClick={() => this.handleSortComp('Desc')}>Name Desc</a>
-            <a href="#" onClick={() => this.handleSortComp('Asc')}>Date Asc</a>
-            <a href="#" onClick={() => this.handleSortComp('Desc')}>Date Desc</a>
-          </div>
-        </div>
-        <input type="text" placeholder="Filter..." value={this.state.valueComp} onChange={this.handleChangeComp}></input>
-        <i className="fa fa-search"></i>
+          </div> : ""}
+          <h4>Completed Items</h4>
+        {itemsTodoCompleted.length !== 0 ?
+          <div>
+            <div className="dropdown">
+              <button className="dropbtn">{this.state.sortValue}</button>
+              <div className="dropdown-content">
+                <a href="#" onClick={() => this.handleSortComp('None')}>None</a>
+                <a href="#" onClick={() => this.handleSortComp('Asc')}>Name Asc</a>
+                <a href="#" onClick={() => this.handleSortComp('Desc')}>Name Desc</a>
+                <a href="#" onClick={() => this.handleSortComp('Asc')}>Date Asc</a>
+                <a href="#" onClick={() => this.handleSortComp('Desc')}>Date Desc</a>
+              </div>
+            </div>
+            <input type="text" placeholder="Filter..." value={this.state.valueComp} onChange={this.handleChangeComp}></input>
+            <i className="fa fa-search"></i>
+          </div> : ""}
         {this.state.valueComp !== "" ? <ul>{itemsToFilterDone}</ul> : <ul>{itemsToRenderDone}</ul>}
-        <div className="container" >
-          <div className="row" >
-            <div className="col-12">
-              <ul className="horizontal-list">
-              <li>
-                  <a href='!#'  onClick={() => paginateComp(this.state.currentPageComp > 1 ? this.state.currentPageComp-1 : this.state.currentPageComp)} >Previous</a>
-                </li>
-                {renderPageNumbersComp}
-                <li>
-                  <a href='!#' onClick={() => paginateComp(currentPostsComp.length < 3  ? this.state.currentPageComp : this.state.currentPageComp+1)}>Next</a>
-                </li>
-              </ul>
+        {itemsTodoCompleted.length !== 0 ?
+          <div className="container" >
+            <div className="row" >
+              <div className="col-12">
+                <ul className="horizontal-list">
+                  <li>
+                    <a href='!#' onClick={() => paginateComp(this.state.currentPageComp > 1 ? this.state.currentPageComp - 1 : this.state.currentPageComp)} >Previous</a>
+                  </li>
+                  {renderPageNumbersComp}
+                  <li>
+                    <a href='!#' onClick={() => paginateComp(currentPostsComp.length < 3 ? this.state.currentPageComp : this.state.currentPageComp + 1)}>Next</a>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </div>
+          </div> : ""}
         {this.props.isGettingItems ? <Spinner /> : ''}
         {this.props.isGettinItemError ? 'Something went wrong!' : ''}
         {this.props.isAddingItem ? <Spinner /> : ''}

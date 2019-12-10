@@ -28,16 +28,27 @@ class ItemsList extends Component {
     this.state = {
       value: "",
       valueComp: "",
-      sortType: 'Select an Option',
-      sortTypeComp: 'Select an Option',
+      sortType: 'Sort by',
+      sortTypeComp: 'Sort by',
       currentPage: 1,
       postsPerPage: 3,
       currentPageComp: 1,
       postsPerPageComp: 3,
+      itemsLength: 0
     };
   }
   UNSAFE_componentWillMount() {
     this.handleGet();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.items.length < this.props.items.length) {
+      let prevLength = this.props.items.length;
+      let nextLength = nextProps.items.length;
+      if (prevLength - nextLength === 1) {
+        alert('The item deleted successfully!');
+      }
+    }
   }
 
   handleDelete = (item) => {
@@ -104,7 +115,7 @@ class ItemsList extends Component {
     })
 
     //SORT BY TITLE TO-DO ITEMS
-    if (this.state.sortType !== 'Select an Option' && this.state.sortType !== 'Date Asc' && this.state.sortType !== 'Date Desc') {
+    if (this.state.sortType !== 'Sort by' && this.state.sortType !== 'Date Asc' && this.state.sortType !== 'Date Desc') {
       let itemsSorted = itemsTodo.sort((a, b) => {
         const isReversed = (this.state.sortType === 'Name Asc') ? 1 : -1;
         return isReversed * a.title.localeCompare(b.title)
@@ -128,9 +139,9 @@ class ItemsList extends Component {
     }
 
     //SORT BY DATE TO-DO ITEMS
-    if (this.state.sortType !== 'Select an Option' && this.state.sortType !== 'Name Asc' && this.state.sortType !== 'Name Desc') {
+    if (this.state.sortType !== 'Sort by' && this.state.sortType !== 'Name Asc' && this.state.sortType !== 'Name Desc') {
       let itemsSortedDate = itemsTodo.sort((a, b) => {
-        const isReversed = (this.state.sortType=== 'Date Asc') ? 1 : -1;
+        const isReversed = (this.state.sortType === 'Date Asc') ? 1 : -1;
         return isReversed * (b.date - a.date)
       });
 
@@ -174,7 +185,7 @@ class ItemsList extends Component {
         </li>)
     })
     //SORT BY TITLE COMPLETED ITEMS
-    if (this.state.sortTypeComp !== 'Select an Option' && this.state.sortTypeComp !== 'Date Asc' && this.state.sortTypeComp !== 'Date Desc') {
+    if (this.state.sortTypeComp !== 'Sort by' && this.state.sortTypeComp !== 'Date Asc' && this.state.sortTypeComp !== 'Date Desc') {
       let itemsSortedComp = itemsTodoCompleted.sort((a, b) => {
         const isReversed = (this.state.sortTypeComp === 'Name Asc') ? 1 : -1;
         return isReversed * a.title.localeCompare(b.title)
@@ -199,7 +210,7 @@ class ItemsList extends Component {
 
     //SORT BY DATE COMPLETED ITEMS
     let itemsSortedDateComp = itemsTodoCompleted
-    if (this.state.sortTypeComp !== 'Select an Option' && this.state.sortTypeComp !== 'Name Asc' && this.state.sortTypeComp !== 'Name Desc') {
+    if (this.state.sortTypeComp !== 'Sort by' && this.state.sortTypeComp !== 'Name Asc' && this.state.sortTypeComp !== 'Name Desc') {
       itemsSortedDateComp = itemsTodoCompleted.sort((a, b) => {
         const isReversed = (this.state.sortTypeComp === 'Date Asc') ? 1 : -1;
         return isReversed * (b.date - a.date)
@@ -282,10 +293,12 @@ class ItemsList extends Component {
         <h4>Todo Items</h4>
         {itemsTodo.length !== 0 ?
           <div>
+
+
             <div className="dropdown">
-               <button className="dropbtn" value={this.state.sortType}>{this.state.sortType}</button> 
+              <button className="dropbtn" value={this.state.sortType}>{this.state.sortType}</button>
               <div className="dropdown-content">
-                <a href="#" onClick={() => this.handleSort('Select an Option')}>None</a>
+                <a href="#" onClick={() => this.handleSort('Sort by')}>None</a>
                 <a href="#" onClick={() => this.handleSort('Name Asc')}>Name Asc</a>
                 <a href="#" onClick={() => this.handleSort('Name Desc')}>Name Desc</a>
                 <a href="#" onClick={() => this.handleSortDate('Date Asc')} >Date Asc</a>
@@ -320,7 +333,7 @@ class ItemsList extends Component {
             <div className="dropdown">
               <button className="dropbtn" value={this.state.sortTypeComp}>{this.state.sortTypeComp}</button>
               <div className="dropdown-content">
-                <a href="#" onClick={() => this.handleSortComp('Select an Option')}>None</a>
+                <a href="#" onClick={() => this.handleSortComp('Sort by')}>None</a>
                 <a href="#" onClick={() => this.handleSortComp('Name Asc')}>Name Asc</a>
                 <a href="#" onClick={() => this.handleSortComp('Name Desc')}>Name Desc</a>
                 <a href="#" onClick={() => this.handleSortCompDate('Date Asc')}>Date Asc</a>
@@ -354,7 +367,6 @@ class ItemsList extends Component {
         {this.props.isAddingItem ? <Spinner /> : ''}
         {this.props.isAddingItemError ? 'Something went wrong!' : ''}
         {this.props.isRemovingItem ? <Spinner /> : ''}
-        {this.props.isRemoveItem === true ? alert('The item deleted successfully!') : ''}
         {this.props.isRemovingItemError ? 'Something went wrong!' : ''}
         {this.props.isEditingItem ? <Spinner /> : ''}
         {this.props.isEditingItemError ? 'Something went wrong!' : ''}

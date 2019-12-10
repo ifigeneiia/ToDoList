@@ -32,7 +32,7 @@ export function removingItem() {
 export function removeItem(payload) {
     return {
         type: actionTypes.REMOVE_ITEM,
-        payload
+        payload,
     };
 }
 

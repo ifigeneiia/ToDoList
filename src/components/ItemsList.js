@@ -92,9 +92,12 @@ class ItemsList extends Component {
 
   render() {
     //TODO ITEMS
-    const itemsTodo = this.props.items.filter((element) => {
+    let itemsTodo = this.props.items.filter((element) => {
       return (element.completed === false)
     });
+    itemsTodo = itemsTodo.sort((a, b) => {
+        return b.date - a.date
+    })
     let itemsToRender = itemsTodo.map((element, i) => {
       return (
         <li className="list-item" key={i} >

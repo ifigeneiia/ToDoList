@@ -249,6 +249,13 @@ input[type=text]{
 	position:relative;
 	top:1px;
 }
+.submitButtonText{
+  display: none;
+}
+
+.submitButtonIcon{
+  display: block;
+}
 
 .data {
   border: 1px solid #ddd;
@@ -410,6 +417,17 @@ input:checked + .slider:before {
       display: block;
     }
     .editButtonIcon{
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 768px) {  
+  .submitButton {
+    .submitButtonText{
+      display: block;
+    }
+    .submitButtonIcon{
       display: none;
     }
   }

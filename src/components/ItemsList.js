@@ -258,8 +258,8 @@ class ItemsList extends Component {
     const paginate = pageNumber => this.setCurrentPage(pageNumber);
     const renderPageNumbers = pageNumbers.map(number => {
       return (
-        <li key={number} >
-          <a href='!#' onClick={() => paginate(number)}>{number}</a>
+        <li key={number} className={number == this.state.currentPage ? 'active' : ''}>
+          <a href='#!' onClick={() => paginate(number)}>{number}</a>
         </li>
       )
     });
@@ -285,10 +285,8 @@ class ItemsList extends Component {
     const paginateComp = pageNumberComp => this.setCurrentPageComp(pageNumberComp);
     const renderPageNumbersComp = pageNumbersComp.map(numberComp => {
       return (
-        <li key={numberComp}>
-          <a className="number" href='!#' onClick={() => paginateComp(numberComp)} >
-            {numberComp}
-          </a>
+        <li key={numberComp} className={numberComp == this.state.currentPageComp ? 'active' : ''}>
+          <a href='#!' onClick={() => paginateComp(numberComp)}>{numberComp}</a>
         </li>)
     });
     return (

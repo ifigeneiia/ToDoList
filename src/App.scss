@@ -485,10 +485,12 @@ input:checked + .slider:before {
   display: flex;
   align-items: center;
   justify-content: center;
-  }
 
-  a:active {
-    background-color: yellow;
+    li {
+      &.active{
+        background-color: #BEBEBE;
+      }
+    }
   }
 
   

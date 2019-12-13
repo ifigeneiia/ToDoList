@@ -7,6 +7,7 @@ import Spinner from './UI/Spinner/Spinner';
 import Item from './Item';
 import logo from '../Logo/logo.PNG'
 import 'font-awesome/css/font-awesome.min.css';
+import ScrollApp from './UI/ScrollButton';
 
 const mapStateToProps = state => {
   return {
@@ -258,7 +259,7 @@ class ItemsList extends Component {
     const paginate = pageNumber => this.setCurrentPage(pageNumber);
     const renderPageNumbers = pageNumbers.map(number => {
       return (
-        <li key={number} className={number == this.state.currentPage ? 'active' : ''}>
+        <li key={number} className={number === this.state.currentPage ? 'active' : ''}>
           <a href='#!' onClick={() => paginate(number)}>{number}</a>
         </li>
       )
@@ -285,7 +286,7 @@ class ItemsList extends Component {
     const paginateComp = pageNumberComp => this.setCurrentPageComp(pageNumberComp);
     const renderPageNumbersComp = pageNumbersComp.map(numberComp => {
       return (
-        <li key={numberComp} className={numberComp == this.state.currentPageComp ? 'active' : ''}>
+        <li key={numberComp} className={numberComp === this.state.currentPageComp ? 'active' : ''}>
           <a href='#!' onClick={() => paginateComp(numberComp)}>{numberComp}</a>
         </li>)
     });
@@ -363,6 +364,7 @@ class ItemsList extends Component {
               </div>
             </div>
           </div> : ""}
+          <ScrollApp/>
         {this.props.isGettingItems ? <Spinner /> : ''}
         {this.props.isGettinItemError ? 'Something went wrong!' : ''}
         {this.props.isAddingItem ? <Spinner /> : ''}
